@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/helpers/mostrar_alertas.dart';
 import 'package:flutter_chat/services/auth_service.dart';
+import 'package:flutter_chat/services/socket_service.dart';
 import 'package:flutter_chat/widgets/boton_azul.dart';
 
 import 'package:flutter_chat/widgets/labels.dart';
@@ -54,6 +55,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
       margin: EdgeInsets.only(top: 40),
@@ -92,7 +94,7 @@ class __FormState extends State<_Form> {
                         passCtrl.text.trim());
 
                     if (registroOk == true) {
-                      //TODO: Conectar al Socket Server
+                      socketService.connect();
                       Navigator.pushReplacementNamed(context, 'usuarios');
                     } else {
                       mostrarAlerta(context, 'Regsitro incorrecto', registroOk);
